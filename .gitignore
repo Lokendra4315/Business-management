@@ -1,0 +1,30 @@
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Expo
+.expo/
+**/.expo/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build files
+dist/
+build/
+android/app/build/
+ios/build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/

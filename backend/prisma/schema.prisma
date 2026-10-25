@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum BusinessType {
+  HOTEL
+  HOSTEL
+  HOME
+  COMPANY
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+model User {
+  id           String     @id @default(cuid())
+  name         String
+  email        String     @unique
+  passwordHash String
+  businesses   Business[]
+  createdAt    DateTime   @default(now())
+}
+
+model Business {
+  id           String        @id @default(cuid())
+  name         String
+  type         BusinessType
+  address      String?
+  ownerId      String
+  owner        User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  createdAt    DateTime      @default(now())
+  @@index([ownerId])
+}
+
+model Transaction {
+  id          String          @id @default(cuid())
+  businessId  String
+  business    Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  type        TransactionType
+  category    String
+  amount      Decimal         @db.Decimal(12, 2)
+  description String?
+  date        DateTime        @default(now())
+  createdAt   DateTime        @default(now())
+  @@index([businessId, date])
+}
