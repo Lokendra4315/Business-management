@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Business Manager — React Native + Backend + Database
 
 A starter full-stack app to manage Hotels, Hostels, Homes and Companies from one account.
@@ -80,3 +81,6 @@ All business and transaction endpoints require `Authorization: Bearer <token>`.
 
 ## Important before real-world use
 Use HTTPS in production, rotate secrets, add backups, audit logs, rate limiting, automated tests, and role/permission management. Do not use this MVP as the sole accounting/tax record system without professional review.
+=======
+# Business-management
+>>>>>>> 8f911ed7dbf8c1f0a97fea12ea8952f742103b7d
