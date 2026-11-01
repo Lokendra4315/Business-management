@@ -2,7 +2,37 @@ const router = require('express').Router();
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { auth } = require('../middleware/auth');
 const prisma = new PrismaClient();
+
+router.get('/profile', auth, async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+      select: { id: true, name: true, email: true, createdAt: true },
+    });
+    if (!user) return res.status(404).json({ message: 'Profile not found' });
+    res.json(user);
+  } catch {
+    res.status(500).json({ message: 'Could not load profile' });
+  }
+});
+
+router.patch('/profile', auth, async (req, res) => {
+  try {
+    const name = typeof req.body.name === 'string' ? req.body.name.trim() : '';
+    if (!name || name.length > 100)
+      return res.status(400).json({ message: 'Name is required and must be 100 characters or fewer' });
+    const user = await prisma.user.update({
+      where: { id: req.user.id },
+      data: { name },
+      select: { id: true, name: true, email: true, createdAt: true },
+    });
+    res.json(user);
+  } catch {
+    res.status(500).json({ message: 'Could not update profile' });
+  }
+});
 
 router.post('/signup', async (req, res) => {
   try {

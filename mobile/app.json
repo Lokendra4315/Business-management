@@ -9,7 +9,9 @@
       "package": "com.businessmanager.app"
     },
     "plugins": [
-      "expo-status-bar"
+      "expo-status-bar",
+      "expo-sharing",
+      "@react-native-community/datetimepicker"
     ]
   }
 }
