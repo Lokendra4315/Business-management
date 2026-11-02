@@ -52,8 +52,16 @@ npm run dev
 
 API runs at `http://localhost:4000`.
 
-### Android physical phone
-In `mobile/src/api.js`, replace `http://10.0.2.2:4000/api` with your computer's LAN IP, for example `http://192.168.1.5:4000/api`. Phone and computer must be on the same Wi-Fi. Allow port 4000 through Windows Firewall.
+### Physical phone (Android or iPhone)
+Set `EXPO_PUBLIC_API_URL` to your computer's current LAN address before starting Expo, for example in PowerShell:
+
+```powershell
+$env:EXPO_PUBLIC_API_URL="http://192.168.1.3:4000/api"
+npm start
+```
+
+The mobile app defaults to `http://192.168.1.3:4000/api`; replace that address in `mobile/src/api.js` or set `EXPO_PUBLIC_API_URL` if your computer's address is different. Find the current address with `ipconfig`. The phone and computer must be connected to the same Wi-Fi network. Allow inbound TCP port 4000 through Windows Firewall if prompted.
+The backend listens on all network interfaces so a phone on the LAN can reach it. Use this HTTP setup for trusted local development only; production deployments should use HTTPS.
 
 ### Android emulator
 `10.0.2.2` points to your host computer, so the default API URL works.

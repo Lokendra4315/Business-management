@@ -1,8 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Use the computer's Wi-Fi IP so physical devices on the same network can reach the API.
-export const API_URL = 'http://192.168.1.4:4000/api';
+// Set EXPO_PUBLIC_API_URL when your development computer's LAN address changes.
+export const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://192.168.1.3:4000/api';
 export const api = axios.create({ baseURL: API_URL, timeout: 20000 });
 api.interceptors.request.use(async config => {
   const token = await AsyncStorage.getItem('token');

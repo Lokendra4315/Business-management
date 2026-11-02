@@ -17,6 +17,7 @@ dist/
 build/
 android/app/build/
 ios/build/
+backend/storage/
 
 # Logs
 *.log
